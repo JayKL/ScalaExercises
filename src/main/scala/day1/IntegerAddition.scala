@@ -7,8 +7,6 @@ object IntegerAddition extends App {
     def +++++(inputA: A): Int = {
       intValueOfA + inputA.intValueOfA
     }
-
-    intValueOfA
   }
 
   val a = A(2)
@@ -16,17 +14,17 @@ object IntegerAddition extends App {
 
   println(a +++++ b)
 
-  def IntegerAdditionTwo(inputInt: Int, inputIntTwo: Int, addYesOrNo: Boolean ): Int ={
-    if (inputInt==0 & inputIntTwo==0) {
+  def IntegerAdditionTwo(inputInt: Int, inputIntTwo: Int, addYesOrNo: Boolean): Int = {
+    if (inputInt == 0 & inputIntTwo == 0) {
       0
-    }else if (inputInt==0){
+    } else if (inputInt == 0) {
       inputInt
-    } else if (inputIntTwo==0){
+    } else if (inputIntTwo == 0) {
       inputIntTwo
-    }else if (addYesOrNo){
+    } else if (addYesOrNo) {
       inputInt + inputIntTwo
     } else {
-      inputInt*inputIntTwo
+      inputInt * inputIntTwo
     }
   }
 
