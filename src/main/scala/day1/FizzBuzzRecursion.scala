@@ -6,16 +6,15 @@ object FizzBuzzRecursion extends App {
   def fizzBuzzRecursion(fizz: String, buzz: String, limitOfLoop: Int): Unit = {
     if (!(limitOfLoop == 0)) {
       fizzBuzzRecursion(fizz, buzz, limitOfLoop - 1)
-      if (limitOfLoop % 3 == 0) {
-        returnString = fizz
-      }
-      if (limitOfLoop % 5 == 0) {
-        returnString += buzz
-      }
-      if (!(returnString.equals(""))) {
-        println(returnString)
-        returnString = ""
-      } else {
+      val fizzBoolean= limitOfLoop % 3 == 0
+      val buzzBoolean= limitOfLoop % 5 == 0
+      if (fizzBoolean & buzzBoolean) {
+        println(fizz+buzz)
+      } else if (buzzBoolean) {
+        println(buzz)
+      } else if (fizzBoolean ){
+        println(fizz)
+      } else{
         println(limitOfLoop)
       }
     }
