@@ -14,10 +14,10 @@ object RectangleRecursion extends App {
       print("\n")
     }
     print(stringToBePrinted)
-    if (totalPrintNeeded >0) {
+    if (totalPrintNeeded >1) {
       printRecursion(stringToBePrinted, totalPrintNeeded - 1)
     }
   }
 
-  printRecursion("Kitty", 2)
+  printRecursion("Kitty", 4)
 }
