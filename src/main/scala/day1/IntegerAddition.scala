@@ -15,11 +15,14 @@ object IntegerAddition extends App {
   println(a +++++ b)
 
   def IntegerAdditionTwo(inputInt: Int, inputIntTwo: Int, addYesOrNo: Boolean): Int = {
-    if (inputInt == 0 & inputIntTwo == 0) {
+    val isFirstInputZero= inputInt==0
+    val isSecondInputZero= inputIntTwo==0
+
+    if (isFirstInputZero & isSecondInputZero) {
       0
-    } else if (inputInt == 0) {
+    } else if (isFirstInputZero) {
       inputInt
-    } else if (inputIntTwo == 0) {
+    } else if (isSecondInputZero) {
       inputIntTwo
     } else if (addYesOrNo) {
       inputInt + inputIntTwo
