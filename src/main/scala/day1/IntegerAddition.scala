@@ -17,7 +17,13 @@ object IntegerAddition extends App {
   println(a +++++ b)
 
   def IntegerAdditionTwo(inputInt: Int, inputIntTwo: Int, addYesOrNo: Boolean ): Int ={
-    if (addYesOrNo){
+    if (inputInt==0 & inputIntTwo==0) {
+      0
+    }else if (inputInt==0){
+      inputInt
+    } else if (inputIntTwo==0){
+      inputIntTwo
+    }else if (addYesOrNo){
       inputInt + inputIntTwo
     } else {
       inputInt*inputIntTwo
