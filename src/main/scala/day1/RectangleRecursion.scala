@@ -1,10 +1,8 @@
 package day1
 
-object rectangleRecursion extends App {
+object RectangleRecursion extends App {
   var firstTime = true
   var saveIterateValue = 0
-
-
   def printRecursion(stringToBePrinted: String, iterateValue: Int): Unit = {
     var iterateValue2 = iterateValue
     if (firstTime) {
