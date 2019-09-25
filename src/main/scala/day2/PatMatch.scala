@@ -1,4 +1,4 @@
-package day1
+package day2
 
 object PatMatch extends App{
   def integerAdditionPatMatch(inputIntOne: Int, inputIntTwo: Int,addOrNot: Boolean): Int = inputIntOne match{

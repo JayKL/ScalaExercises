@@ -1,4 +1,4 @@
-package day1
+package day2
 
 object PatMatch2 extends App {
   def patMatchTwo( inputIntegers: Any): Any = inputIntegers match{
