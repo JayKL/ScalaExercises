@@ -30,9 +30,6 @@ object KeyboardWordGenerator extends App {
     arrayOfCharsToCheck.map(stringToConvertToChars => findLargestWord(listOfPossibleWords,stringToConvertToChars.toCharArray.toSet)).toList
   }
 
-  val x=Array("abc","def").map(word=>word.toCharArray.toSet)
-
-
   val listOfWordsToBeChecked: List[String] = Source.fromURL("http://norvig.com/ngrams/enable1.txt").mkString.split("\n").toList
 
   println("Please Input Amount of Lines to read, then the chars that are available to the keyboard")
