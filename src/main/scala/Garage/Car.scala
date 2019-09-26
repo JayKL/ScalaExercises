@@ -1,9 +1,7 @@
 package Garage
 
 
-case class Car(var model: String, var regID: Int, var owner: Customer) extends Vehicle {
+case class Car(var model: String, var regID: Int, var ownerCustomerID: Int) extends Vehicle {
 
-  override def getOwner(): Customer = owner
-
-  override def toString: String = s"Vehicle($model, $regID, $owner)"
+  override def toString: String = s"Vehicle($model, $regID, $ownerCustomerID)"
 }
