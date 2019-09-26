@@ -1,9 +1,9 @@
 package Garage
 
 abstract class Vehicle {
-  def model: String
-  def owner: Customer
-  def regID: Int
-
+  var model: String
+  var owner: Customer
+  var regID: Int
+  def getOwner(): Customer
   override def toString = s"Vehicle($model, $owner , $regID)"
 }

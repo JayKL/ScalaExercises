@@ -1,7 +1,8 @@
 package Garage
 
-case class Employee(employeeName: String, position: String) extends Person {
-   def name = employeeName
+case class Employee(var name: String, positionInput: String, employeeIDInput: Int) extends Person {
+  var position = positionInput
+  var employeeID = employeeIDInput
 
-  override def toString = s"Person($employeeName)"
+  override def toString = s"Person($name, $positionInput)"
 }

@@ -1,7 +1,7 @@
 package Garage
 
 abstract class Person {
-  def name: String
+  var name: String
 
   override def toString = s"Person($name)"
 }
