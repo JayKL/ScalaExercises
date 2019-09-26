@@ -11,7 +11,6 @@ class Garage {
     listOfCustomers.contains(customerToBeAdded.getCustomerID())  match{
       case true => listOfCustomers.filter(customerVal => customerVal.getCustomerID()==customerToBeAdded.getCustomerID()).head.addToListOfVehicles(vehicleToBeAdded)
       case false => {
-        customerToBeAdded.setToListOfVehicles(vehicleToBeAdded)
         listOfCustomers = listOfCustomers :+ customerToBeAdded
       }
     }
@@ -22,9 +21,15 @@ class Garage {
     addCustomer(vehicleToBeAdded.getOwner(), vehicleToBeAdded)
   }
 
-  def removeVehicle(): Unit ={
-
+  def removeVehicle(vehicleToBeRemoved: Vehicle): Unit ={
+    listOfVehicles.contains(vehicleToBeRemoved) match {
+      case true => {
+        listOfVehicles = listOfVehicles.filterNot(vehicleVal => vehicleVal.getOwner().getCustomerID()==vehicleToBeRemoved.getOwner().getCustomerID())
+      }
+      case false => println("VEHICLE NOT FOUND")
+    }
   }
+
 
   def registerEmployee: Unit ={
 
