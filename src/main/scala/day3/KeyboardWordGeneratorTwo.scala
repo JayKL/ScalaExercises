@@ -23,21 +23,12 @@ object KeyboardWordGeneratorTwo extends App {
 //  }
 
  def checkIfSetOfCharIsInStringMoreE(inputString: String, inputSetChars: Set[Char]): Boolean = {
-   if (inputString.toSet.subsetOf(inputSetChars)) {
-     true
-   } else {
-     false
-   }
+   inputString.toSet.subsetOf(inputSetChars)
  }
 
   def checkIfSetsAreEqual(inputString: String, inputSetChars: Set[Char]): Boolean = {
-    if (inputString.toSet.subsetOf(inputSetChars) & inputSetChars.subsetOf(inputString.toSet)) {
-      true
-    } else {
-      false
-    }
+    inputString.toSet.subsetOf(inputSetChars) & inputSetChars.subsetOf(inputString.toSet)
   }
-
 
   def findLargestWord(listOfPossibleWords: List[String], charsToBeTested: Set[Char]): String = {
   //  val arrayOfDifference = (Set('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z')).diff(charsToBeTested) artifact of improvement, removed for efficiency
