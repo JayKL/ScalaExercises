@@ -1,18 +1,11 @@
 package Garage
 
-case class Customer(var name: String, customerVehicle: Vehicle, customerIDInput: Int) extends Person {
-  var listOfVehiclesInCustomer: List[Vehicle] = List()
+case class Customer(var name: String, customerIDInput: Int) extends Person {
   var customerID = customerIDInput
 
   def getCustomerID(): Int = customerID
 
-  def addToListOfVehicles(vehicleToAdd: Vehicle): Unit = {
-    listOfVehiclesInCustomer = listOfVehiclesInCustomer :+ vehicleToAdd
-  }
 
-  def setToListOfVehicles(vehicleToSet: Vehicle): Unit ={
-    listOfVehiclesInCustomer = vehicleToSet :: Nil
-  }
 
-  override def toString = s"Person($name, $customerVehicle)"
+  override def toString = s"Person($name, $customerIDInput)"
 }
