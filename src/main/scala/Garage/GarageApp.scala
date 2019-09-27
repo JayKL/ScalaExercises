@@ -33,6 +33,11 @@ object GarageApp extends App {
     print("\n")
     print("Available Employee Work Hours: ")
     print(garageRefVal.getContentsOfEmployees().filter(employee => employee.canThisEmployeeWork==true).map(employee => employee.workableHours).sum)
+    var employeeWorkHours = garageRefVal.getContentsOfEmployees().filter(employee => employee.canThisEmployeeWork==true).map(employee => employee.workableHours).sum
+    garageRefVal.fixVehicle(garageRefVal.getContentsOfGarage()(0),employeeWorkHours,employeeWorkHours/12)
+
+
+
   }
   garageRefVal.closeGarage()
 

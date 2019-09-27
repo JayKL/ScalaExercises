@@ -26,24 +26,37 @@ class Garage {
 
 
   def registerEmployee(employeeToBeRegistered: Employee): Unit = {
-    listOfEmployees= listOfEmployees :+ employeeToBeRegistered
+    listOfEmployees = listOfEmployees :+ employeeToBeRegistered
   }
 
-  def fixVehicle(vehicleToBeFixed: Vehicle): Unit = {
-    calculateFixTime(vehicleToBeFixed)
+  def fixVehicle(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int, workableEmployees: Int): Int = {
+    if (currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed) >= 0) {
+      calculateAmountOfEmployeesToFixVehicle(calculateFixTime(vehicleToBeFixed),0,true)
+      vehicleToBeFixed.setListOfParts(vehicleToBeFixed.getListOfParts().map(part => part.setPartBrokenValue(true)))
+      removeVehicle(vehicleToBeFixed)
+      print("Total amount to pay: £")
+      print(calculateBill(vehicleToBeFixed))
+      print("\n")
+      print("Total time to fix: ")
+      print(calculateFixTime(vehicleToBeFixed))
+      print(" hrs")
+      currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed)
+    } else{
+      print("not enough hours to fix")
+      0
+    }
 
-
-    vehicleToBeFixed.setListOfParts(vehicleToBeFixed.getListOfParts().map(part => part.setPartBrokenValue(true)))
-    removeVehicle(vehicleToBeFixed)
-    print("Total amount to pay: £")
-    print(calculateBill(vehicleToBeFixed))
-    print("\n")
-    print("Total time to fix: ")
-    print(calculateFixTime(vehicleToBeFixed))
-    print(" hrs")
   }
 
-  def calculateFixTime(vehicleToBeFixed: Vehicle):Int={
+  def calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle: Int,numberOfEmployees: Int,firstRun: Boolean,): Int = {
+    if (timeToFixVehicle>=12){
+      calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle-12,numberOfEmployees+1,false)
+      (numberOfEmployees,0)
+    }
+    numberOfEmployees
+  }
+
+  def calculateFixTime(vehicleToBeFixed: Vehicle): Int = {
     vehicleToBeFixed.getListOfParts().map(part => part.timeToFix).sum
   }
 
