@@ -8,8 +8,14 @@ class Part {
     case 0 => true
     case 1 => false
   }
+
+  def setPartBrokenValue(valueToBeSet:Boolean): Part={
+    broken=valueToBeSet
+    this
+  }
+
   val priceToFix: Int = new Random().nextInt(150)
   val timeToFix: Int=new Random().nextInt(4)
 
-  override def toString = s"Part()"
+  override def toString: String = s"Part($broken, $priceToFix, $timeToFix)"
 }

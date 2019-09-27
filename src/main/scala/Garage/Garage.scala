@@ -25,16 +25,26 @@ class Garage {
   }
 
 
-  def registerEmployee: Unit = {
-
+  def registerEmployee(employeeToBeRegistered: Employee): Unit = {
+    listOfEmployees= listOfEmployees :+ employeeToBeRegistered
   }
 
-  def fixVehicle: Unit = {
-
+  def fixVehicle(vehicleToBeFixed: Vehicle): Unit = {
+    vehicleToBeFixed.setListOfParts(vehicleToBeFixed.getListOfParts().map(part => part.setPartBrokenValue(true)))
+    print("Total amount to pay: £")
+    print(calculateBill(vehicleToBeFixed))
+    print("\n")
+    print("Total time to fix: ")
+    print(calculateFixTime(vehicleToBeFixed))
+    print(" hrs")
   }
 
-  def calculateBill: Unit = {
+  def calculateFixTime(vehicleToBeFixed: Vehicle):Int={
+    vehicleToBeFixed.getListOfParts().map(part => part.timeToFix).sum
+  }
 
+  def calculateBill(vehicleToBeFixed: Vehicle): Int = {
+    vehicleToBeFixed.getListOfParts().map(part => part.priceToFix).sum
   }
 
   def getContentsOfGarage: List[Vehicle] = {
@@ -48,5 +58,6 @@ class Garage {
   def closeGarage: Unit = {
     openOrNot = false
   }
+
 
 }
