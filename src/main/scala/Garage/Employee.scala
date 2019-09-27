@@ -15,5 +15,5 @@ case class Employee(var name: String, positionInput: String, employeeIDInput: In
     case _ => false
   }
 
-  override def toString = s"Person($name, $positionInput)"
+  override def toString = s"Person($name, $positionInput, $employeeIDInput, $workableHours, $canThisEmployeeWork)"
 }
