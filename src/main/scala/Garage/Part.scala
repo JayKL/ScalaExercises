@@ -14,6 +14,9 @@ class Part {
     this
   }
 
+  def getTimeToFix(): Int={
+    timeToFix
+  }
   val priceToFix: Int = new Random().nextInt(150)
   val timeToFix: Int=new Random().nextInt(4)
 

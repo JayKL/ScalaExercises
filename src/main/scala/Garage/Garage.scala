@@ -31,6 +31,7 @@ class Garage {
 
   def fixVehicle(vehicleToBeFixed: Vehicle): Unit = {
     vehicleToBeFixed.setListOfParts(vehicleToBeFixed.getListOfParts().map(part => part.setPartBrokenValue(true)))
+    removeVehicle(vehicleToBeFixed)
     print("Total amount to pay: £")
     print(calculateBill(vehicleToBeFixed))
     print("\n")
@@ -47,15 +48,15 @@ class Garage {
     vehicleToBeFixed.getListOfParts().map(part => part.priceToFix).sum
   }
 
-  def getContentsOfGarage: List[Vehicle] = {
+  def getContentsOfGarage(): List[Vehicle] = {
     listOfVehicles
   }
 
-  def openGarage: Unit = {
+  def openGarage(): Unit = {
     openOrNot = true
   }
 
-  def closeGarage: Unit = {
+  def closeGarage(): Unit = {
     openOrNot = false
   }
 
