@@ -48,9 +48,9 @@ class Garage {
 
   }
 
-  def calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle: Int,numberOfEmployees: Int,firstRun: Boolean,): Int = {
+  def calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle: Int,numberOfEmployees: Int,firstRun: Boolean,Remainder: Int): Int = {
     if (timeToFixVehicle>=12){
-      calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle-12,numberOfEmployees+1,false)
+      calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle-12,numberOfEmployees+1,false,0)
       (numberOfEmployees,0)
     }
     numberOfEmployees
