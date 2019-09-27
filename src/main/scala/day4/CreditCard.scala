@@ -40,4 +40,4 @@ object CreditCard extends App {
   addCheckNumber(3)
   println(checkIfVaidNumber())
   println("this is a valid number")
-}sssssss
+}
