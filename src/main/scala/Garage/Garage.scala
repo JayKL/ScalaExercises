@@ -24,9 +24,19 @@ class Garage {
     }
   }
 
-
   def registerEmployee(employeeToBeRegistered: Employee): Unit = {
     listOfEmployees = listOfEmployees :+ employeeToBeRegistered
+  }
+
+  def printInfoToUser(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int): Unit={
+    print("Total amount to pay: £")
+    print(calculateBill(vehicleToBeFixed))
+    print("\n")
+    print("Total time to fix: ")
+    print(calculateFixTime(vehicleToBeFixed))
+    print(" hrs")
+    currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed)
+
   }
 
   def fixVehicle(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int, workableEmployees: Int): Int = {
@@ -34,18 +44,11 @@ class Garage {
       calculateAmountOfEmployeesToFixVehicle(calculateFixTime(vehicleToBeFixed),0,true)
       vehicleToBeFixed.setListOfParts(vehicleToBeFixed.getListOfParts().map(part => part.setPartBrokenValue(true)))
       removeVehicle(vehicleToBeFixed)
-      print("Total amount to pay: £")
-      print(calculateBill(vehicleToBeFixed))
-      print("\n")
-      print("Total time to fix: ")
-      print(calculateFixTime(vehicleToBeFixed))
-      print(" hrs")
-      currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed)
+      printInfoToUser(vehicleToBeFixed,currentTotalEmployeeWorkTime)
     } else{
       print("not enough hours to fix")
       0
     }
-
   }
 
   def calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle: Int,numberOfEmployees: Int,firstRun: Boolean,Remainder: Int): Int = {
@@ -79,6 +82,4 @@ class Garage {
   def closeGarage(): Unit = {
     openOrNot = false
   }
-
-
 }

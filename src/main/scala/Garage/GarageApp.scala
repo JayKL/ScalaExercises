@@ -23,22 +23,33 @@ object GarageApp extends App {
     }
   }
 
-  if (garageRefVal.openOrNot == true) {
-    addCarsToBeFixed(garageRefVal, new Random().nextInt(11) + 10, 0)
+  def printAmountOfCars(): Unit ={
     print("Amount of Cars to be fixed: ")
     print(garageRefVal.getContentsOfGarage().size)
     print("\n")
+  }
+
+  def printTimeToFixAllCars(): Unit ={
     print("Time to fix all Cars: ")
     print(garageRefVal.getContentsOfGarage().flatMap(vehicle => vehicle.getListOfParts()).filter(part => part.broken == true).map(part => part.getTimeToFix()).sum)
     print("\n")
+  }
+
+  def printEmployeeWorkHours(): Unit={
     print("Available Employee Work Hours: ")
     print(garageRefVal.getContentsOfEmployees().filter(employee => employee.canThisEmployeeWork==true).map(employee => employee.workableHours).sum)
+    print("\n")
+  }
+
+  if (garageRefVal.openOrNot == true) {
+    addCarsToBeFixed(garageRefVal, new Random().nextInt(11) + 10, 0)
+    printAmountOfCars()
+    printTimeToFixAllCars()
+    printEmployeeWorkHours()
+
     var employeeWorkHours = garageRefVal.getContentsOfEmployees().filter(employee => employee.canThisEmployeeWork==true).map(employee => employee.workableHours).sum
     garageRefVal.fixVehicle(garageRefVal.getContentsOfGarage()(0),employeeWorkHours,employeeWorkHours/12)
-
-
-
   }
-  garageRefVal.closeGarage()
 
+  garageRefVal.closeGarage()
 }
