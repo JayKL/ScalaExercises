@@ -47,7 +47,7 @@ object GarageApp extends App {
     printTimeToFixAllCars()
     printEmployeeWorkHours()
 
-    var employeeWorkHours = garageRefVal.getContentsOfEmployees().filter(employee => employee.canThisEmployeeWork == true).map(employee => employee.workableHours).sum
+    val employeeWorkHours = garageRefVal.getContentsOfEmployees().filter(employee => employee.canThisEmployeeWork == true).map(employee => employee.workableHours).sum
  //   garageRefVal.fixVehicle(garageRefVal.getContentsOfGarage()(0), employeeWorkHours, garageRefVal.getContentsOfEmployees().size,0)
   // garageRefVal.fixVehicle(garageRefVal.getContentsOfGarage()(1), employeeWorkHours, garageRefVal.getContentsOfEmployees().size,0)
 
