@@ -11,7 +11,7 @@ class CalculatorTest extends ScalaExercisesTesting {
 
   "When calling sum function" should "require two Integer inputs" in {
     var calcRefVar = new Calculator()
-    Calculator.sum(1,2)
+    calcRefVar.sum(1,2)
   }
 
 
