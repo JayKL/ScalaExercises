@@ -21,12 +21,17 @@ class CalculatorTest extends ScalaExercisesTesting {
     }
   }
 
- "When calling sum function" should "not allow integers beyond bounds" in {
+ "When calling sum function" should "not allow integers beyond +ve bounds" in {
     assertResult("result out of bounds") {
       calcRefVar.sum(inputIntOne =2147483647,inputIntTwo = 1)
     }
   }
 
+  "When calling sum function" should "not allow integers beyond -ve bounds" in {
+    assertResult("result out of bounds") {
+      calcRefVar.sum(inputIntOne = -2147483647,inputIntTwo = -1)
+    }
+  }
 
   "When calling multiplication function" should "require two Integer Inputs" in {
     calcRefVar.multi(2, 3)
