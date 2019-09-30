@@ -39,5 +39,4 @@ class CalculatorTest extends ScalaExercisesTesting {
       calcRefVar.minus(2,3)
     }
   }
-
 }

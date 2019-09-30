@@ -8,6 +8,6 @@ class Calculator {
     inputIntOne*inputIntTwo
   }
   def minus(inputIntOne: Int, inputIntTwo:Int): Int={
-    0
+    inputIntOne-inputIntTwo
   }
 }
