@@ -5,6 +5,6 @@ class Calculator {
     inputIntOne+inputIntTwo
   }
   def multi(inputIntOne: Int, inputIntTwo:Int): Int={
-    0
+    inputIntOne*inputIntTwo
   }
 }
