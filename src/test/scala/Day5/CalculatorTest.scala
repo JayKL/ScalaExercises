@@ -14,5 +14,12 @@ class CalculatorTest extends ScalaExercisesTesting {
     calcRefVar.sum(1,2)
   }
 
+  "When calling sum function" should "return the summation of two Integer inputs" in {
+    var calcRefVar = new Calculator()
+    assertResult(5){
+      calcRefVar.sum(2,3)
+    }
+  }
+
 
 }
