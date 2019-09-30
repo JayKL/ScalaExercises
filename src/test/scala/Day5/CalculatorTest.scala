@@ -43,6 +43,18 @@ class CalculatorTest extends ScalaExercisesTesting {
     }
   }
 
+  "When calling multiplication function" should "not allow integers beyond +ve bounds" in {
+    assertResult("result out of bounds") {
+      calcRefVar.multi(inputIntOne =2147483647,inputIntTwo = 2)
+    }
+  }
+
+  "When calling multiplication function" should "not allow integers beyond -ve bounds" in {
+    assertResult("result out of bounds") {
+      calcRefVar.multi(inputIntOne = -2147483647,inputIntTwo = 2)
+    }
+  }
+
   "When calling minus function" should "require two integer inputs" in {
     calcRefVar.minus(2,3)
   }
