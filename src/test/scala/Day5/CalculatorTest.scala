@@ -34,5 +34,10 @@ class CalculatorTest extends ScalaExercisesTesting {
     calcRefVar.minus(2,3)
   }
 
+  "When calling minus function" should "return the first number minus the second number" in {
+    assertResult(-1) {
+      calcRefVar.minus(2,3)
+    }
+  }
 
 }
