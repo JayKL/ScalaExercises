@@ -31,6 +31,9 @@ class Calculator {
     }  }
 
   def divide(numerator: Int, denominator: Int): Any = {
-    numerator / denominator
+    denominator match  {
+      case 0 => "cannot divide by zero"
+      case _ =>  numerator / denominator
+    }
   }
 }

@@ -88,7 +88,7 @@ class CalculatorTest extends ScalaExercisesTesting {
   }
 
   "When calling divide function" should "not allow zero as the denominator" in {
-    assertResult("zero is not allowed as the denominator")  {
+    assertResult("cannot divide by zero")  {
       calcRefVar.divide(30,0)
     }
   }
