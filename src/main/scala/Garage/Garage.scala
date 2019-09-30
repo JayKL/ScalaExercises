@@ -24,29 +24,62 @@ class Garage {
     }
   }
 
+  def registerEmployee(employeeToBeRegistered: Employee): Unit = {
+    listOfEmployees = listOfEmployees :+ employeeToBeRegistered
+  }
 
-  def registerEmployee: Unit = {
+  def printInfoToUser(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int): Unit={
+    print("Total amount to pay: £")
+    print(calculateBill(vehicleToBeFixed))
+    print("\n")
+    print("Total time to fix: ")
+    print(calculateFixTime(vehicleToBeFixed))
+    print(" hrs")
+    currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed)
 
   }
 
-  def fixVehicle: Unit = {
-
+  def fixVehicle(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int, workableEmployees: Int): Int = {
+    if (currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed) >= 0) {
+      calculateAmountOfEmployeesToFixVehicle(calculateFixTime(vehicleToBeFixed),0,true)
+      vehicleToBeFixed.setListOfParts(vehicleToBeFixed.getListOfParts().map(part => part.setPartBrokenValue(true)))
+      removeVehicle(vehicleToBeFixed)
+      printInfoToUser(vehicleToBeFixed,currentTotalEmployeeWorkTime)
+    } else{
+      print("not enough hours to fix")
+      0
+    }
   }
 
-  def calculateBill: Unit = {
-
+  def calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle: Int,numberOfEmployees: Int,firstRun: Boolean,Remainder: Int): Int = {
+    if (timeToFixVehicle>=12){
+      calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle-12,numberOfEmployees+1,false,0)
+      (numberOfEmployees,0)
+    }
+    numberOfEmployees
   }
 
-  def getContentsOfGarage: List[Vehicle] = {
+  def calculateFixTime(vehicleToBeFixed: Vehicle): Int = {
+    vehicleToBeFixed.getListOfParts().map(part => part.timeToFix).sum
+  }
+
+  def calculateBill(vehicleToBeFixed: Vehicle): Int = {
+    vehicleToBeFixed.getListOfParts().map(part => part.priceToFix).sum
+  }
+
+  def getContentsOfGarage(): List[Vehicle] = {
     listOfVehicles
   }
 
-  def openGarage: Unit = {
+  def getContentsOfEmployees(): List[Employee] = {
+    listOfEmployees
+  }
+
+  def openGarage(): Unit = {
     openOrNot = true
   }
 
-  def closeGarage: Unit = {
+  def closeGarage(): Unit = {
     openOrNot = false
   }
-
 }
