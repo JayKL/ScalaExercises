@@ -43,9 +43,14 @@ class Garage {
 
   }
 
-  def fixAllVehicles(): Unit = {
-
-
+  def fixAllVehicles(vehicleToBeFixed: List[Vehicle], currentTotalEmployeeWorkTime: Int, workableEmployees: Int, remainder: Int,whichVehicle:Int): Unit = {
+    if (currentTotalEmployeeWorkTime-calculateFixTime(vehicleToBeFixed(whichVehicle))>=0) {
+      val remainderSave = fixVehicle(vehicleToBeFixed(whichVehicle), currentTotalEmployeeWorkTime, workableEmployees, remainder)
+      fixAllVehicles(vehicleToBeFixed, currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed(whichVehicle)), workableEmployees, remainderSave, whichVehicle + 1)
+    } else{
+      print("\n")
+      println("not enough employee work hours to fix final vehicle")
+    }
   }
 
   def fixVehicle(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int, workableEmployees: Int, remainder: Int): Int = {
@@ -56,7 +61,7 @@ class Garage {
       removeVehicle(vehicleToBeFixed)
       calculateAmountOfEmployeesToFixVehicle(calculateFixTime(vehicleToBeFixed), 0, remainder)
     } else {
-      print("not enough employee work time to fix car")
+      print("not enough employee work time to fix vehicle")
     }
     calculateFixTime(vehicleToBeFixed) % 12
   }
