@@ -9,5 +9,10 @@ class CalculatorTest extends ScalaExercisesTesting {
     assertCompiles("new Calculator()")
   }
 
+  "When calling sum function" should "require two Integer inputs" in {
+    var calcRefVar = new Calculator()
+    Calculator.sum(1,2)
+  }
+
 
 }
