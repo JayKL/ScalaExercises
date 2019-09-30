@@ -43,4 +43,6 @@ class CalculatorTest extends ScalaExercisesTesting {
   "When calling divide function" should "require two integers" in {
     calcRefVar.divide(4,2)
   }
+
+
 }

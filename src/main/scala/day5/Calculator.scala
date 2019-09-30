@@ -10,4 +10,7 @@ class Calculator {
   def minus(inputIntOne: Int, inputIntTwo:Int): Int={
     inputIntOne-inputIntTwo
   }
+  def divide(numerator:Int,denominator:Int): Any ={
+  0
+  }
 }
