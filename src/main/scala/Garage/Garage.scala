@@ -6,7 +6,7 @@ class Garage {
   private var listOfEmployees: List[Employee] = List()
   private var listOfVehicles: List[Vehicle] = List()
   var openOrNot: Boolean = false
-  private var currentEmployee: Int=0
+  private var currentEmployee: Int = 0
 
   def addCustomer(customerToBeAdded: Customer): Unit = {
     listOfCustomers = listOfCustomers :+ customerToBeAdded
@@ -43,33 +43,42 @@ class Garage {
 
   }
 
-  def fixVehicle(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int, workableEmployees: Int): Unit = {
+  def fixAllVehicles(): Unit = {
+
+
+  }
+
+  def fixVehicle(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int, workableEmployees: Int, remainder: Int): Int = {
     val differenceBetweenWorkTimeFixTime = currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed)
     if (differenceBetweenWorkTimeFixTime >= 0) {
       printInfoToUser(vehicleToBeFixed, currentTotalEmployeeWorkTime)
       vehicleToBeFixed.setListOfParts(vehicleToBeFixed.getListOfParts().map(part => part.setPartBrokenValue(true)))
       removeVehicle(vehicleToBeFixed)
-      calculateAmountOfEmployeesToFixVehicle(calculateFixTime(vehicleToBeFixed), 0, (differenceBetweenWorkTimeFixTime % 12))
+      calculateAmountOfEmployeesToFixVehicle(calculateFixTime(vehicleToBeFixed), 0, remainder)
     } else {
       print("not enough employee work time to fix car")
     }
+    calculateFixTime(vehicleToBeFixed) % 12
   }
 
-  def printCurrentEmployee():Unit={
+  def printCurrentEmployee(): Unit = {
     print("\n")
     println("The current employee working on this vehicle is: ")
     print(getContentsOfEmployees()(currentEmployee).position)
-    currentEmployee+=1
   }
 
   def calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle: Int, numberOfEmployees: Int, remainder: Int): Int = {
     timeToFixVehicle match {
       case greaterThanTwelveCheck: Int if greaterThanTwelveCheck >= (12 - remainder) => {
         printCurrentEmployee()
+        currentEmployee += 1
         calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle - (12 - remainder), numberOfEmployees + 1, 0)
       }
       case isZero: Int if isZero == 0 => numberOfEmployees
-      case isNonZero: Int if isNonZero != 0 => numberOfEmployees + 1
+      case isNonZero: Int if isNonZero != 0 => {
+        printCurrentEmployee()
+        numberOfEmployees + 1
+      }
     }
   }
 
