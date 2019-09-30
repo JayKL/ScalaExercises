@@ -40,23 +40,25 @@ class Garage {
   }
 
   def fixVehicle(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int, workableEmployees: Int): Int = {
-    if (currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed) >= 0) {
-      calculateAmountOfEmployeesToFixVehicle(calculateFixTime(vehicleToBeFixed),0,true)
+    val differenceBetweenWorkTimeFixTime = currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed)
+    if (differenceBetweenWorkTimeFixTime >= 0) {
+      calculateAmountOfEmployeesToFixVehicle(calculateFixTime(vehicleToBeFixed),0,true,differenceBetweenWorkTimeFixTime%12)
       vehicleToBeFixed.setListOfParts(vehicleToBeFixed.getListOfParts().map(part => part.setPartBrokenValue(true)))
       removeVehicle(vehicleToBeFixed)
       printInfoToUser(vehicleToBeFixed,currentTotalEmployeeWorkTime)
+      0
     } else{
-      print("not enough hours to fix")
+      print("not enough employee work time to fix car")
       0
     }
   }
 
-  def calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle: Int,numberOfEmployees: Int,firstRun: Boolean,Remainder: Int): Int = {
+  def calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle: Int,numberOfEmployees: Int,firstRun: Boolean,remainder: Int): Int = {
     if (timeToFixVehicle>=12){
-      calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle-12,numberOfEmployees+1,false,0)
-      (numberOfEmployees,0)
+      calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle-12,numberOfEmployees+1,false,remainder)
+    } else{
+      numberOfEmployees
     }
-    numberOfEmployees
   }
 
   def calculateFixTime(vehicleToBeFixed: Vehicle): Int = {
