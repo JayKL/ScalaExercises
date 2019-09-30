@@ -6,6 +6,7 @@ class Garage {
   private var listOfEmployees: List[Employee] = List()
   private var listOfVehicles: List[Vehicle] = List()
   var openOrNot: Boolean = false
+  private var currentEmployee: Int=0
 
   def addCustomer(customerToBeAdded: Customer): Unit = {
     listOfCustomers = listOfCustomers :+ customerToBeAdded
@@ -28,7 +29,10 @@ class Garage {
     listOfEmployees = listOfEmployees :+ employeeToBeRegistered
   }
 
-  def printInfoToUser(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int): Unit={
+  def printInfoToUser(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int): Unit = {
+    print("\n")
+    println("The current vehicle is")
+    println(vehicleToBeFixed)
     print("Total amount to pay: £")
     print(calculateBill(vehicleToBeFixed))
     print("\n")
@@ -42,26 +46,30 @@ class Garage {
   def fixVehicle(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int, workableEmployees: Int): Unit = {
     val differenceBetweenWorkTimeFixTime = currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed)
     if (differenceBetweenWorkTimeFixTime >= 0) {
+      printInfoToUser(vehicleToBeFixed, currentTotalEmployeeWorkTime)
       vehicleToBeFixed.setListOfParts(vehicleToBeFixed.getListOfParts().map(part => part.setPartBrokenValue(true)))
       removeVehicle(vehicleToBeFixed)
-      printInfoToUser(vehicleToBeFixed,currentTotalEmployeeWorkTime)
-      val amountOfEmployeesRequired=calculateAmountOfEmployeesToFixVehicle(calculateFixTime(vehicleToBeFixed),0,(differenceBetweenWorkTimeFixTime%12))
-      amountOfEmployeesRequired
-    } else{
+      calculateAmountOfEmployeesToFixVehicle(calculateFixTime(vehicleToBeFixed), 0, (differenceBetweenWorkTimeFixTime % 12))
+    } else {
       print("not enough employee work time to fix car")
     }
   }
 
-  def calculateCurrentEmployeeWorking(amountOfEmployeesRequired:Int, remainder:Int): Unit ={
-    amountOfEmployeesRequired
-
+  def printCurrentEmployee():Unit={
+    print("\n")
+    println("The current employee working on this vehicle is: ")
+    print(getContentsOfEmployees()(currentEmployee).position)
+    currentEmployee+=1
   }
 
-  def calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle: Int,numberOfEmployees: Int,remainder: Int): Int = {
+  def calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle: Int, numberOfEmployees: Int, remainder: Int): Int = {
     timeToFixVehicle match {
-      case greaterThanTwelveCheck: Int if greaterThanTwelveCheck>=(12-remainder) =>       calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle-(12-remainder),numberOfEmployees+1,0)
-      case isZero: Int if isZero==0 => numberOfEmployees
-      case isNonZero: Int if isNonZero!=0 => numberOfEmployees+1
+      case greaterThanTwelveCheck: Int if greaterThanTwelveCheck >= (12 - remainder) => {
+        printCurrentEmployee()
+        calculateAmountOfEmployeesToFixVehicle(timeToFixVehicle - (12 - remainder), numberOfEmployees + 1, 0)
+      }
+      case isZero: Int if isZero == 0 => numberOfEmployees
+      case isNonZero: Int if isNonZero != 0 => numberOfEmployees + 1
     }
   }
 
