@@ -44,5 +44,10 @@ class CalculatorTest extends ScalaExercisesTesting {
     calcRefVar.divide(4,2)
   }
 
+  "When calling divide function" should "return the two numbers divided" in {
+    assertResult(15)  {
+      calcRefVar.divide(30,2)
+    }
+  }
 
 }
