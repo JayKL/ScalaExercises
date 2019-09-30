@@ -17,8 +17,16 @@ class CalculatorTest extends ScalaExercisesTesting {
   "When calling sum function" should "return the summation of two Integer inputs" in {
     assertResult(5) {
       calcRefVar.sum(2, 3)
+
     }
   }
+
+ "When calling sum function" should "not allow integers beyond bounds" in {
+    assertResult("result out of bounds") {
+      calcRefVar.sum(inputIntOne =2147483647 ,inputIntTwo = 1)
+    }
+  }
+
 
   "When calling multiplication function" should "require two Integer Inputs" in {
     calcRefVar.multi(2, 3)
