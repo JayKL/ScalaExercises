@@ -30,5 +30,9 @@ class CalculatorTest extends ScalaExercisesTesting {
     }
   }
 
+  "When calling minus function" should "require two integer inputs" in {
+    calcRefVar.minus(2,3)
+  }
+
 
 }
