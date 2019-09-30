@@ -67,13 +67,13 @@ class CalculatorTest extends ScalaExercisesTesting {
 
   "When calling minus function" should "not allow integers beyond +ve bounds" in {
     assertResult("result out of bounds") {
-      calcRefVar.multi(inputIntOne =2147483647,inputIntTwo = -1)
+      calcRefVar.minus(inputIntOne =2147483647,inputIntTwo = -1)
     }
   }
 
   "When calling minus function" should "not allow integers beyond -ve bounds" in {
     assertResult("result out of bounds") {
-      calcRefVar.multi(inputIntOne = -2147483647,inputIntTwo = 1)
+      calcRefVar.minus(inputIntOne = -2147483647,inputIntTwo = 1)
     }
   }
 
