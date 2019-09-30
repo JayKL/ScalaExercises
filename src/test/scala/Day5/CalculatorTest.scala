@@ -23,7 +23,7 @@ class CalculatorTest extends ScalaExercisesTesting {
 
  "When calling sum function" should "not allow integers beyond bounds" in {
     assertResult("result out of bounds") {
-      calcRefVar.sum(inputIntOne =2147483647 ,inputIntTwo = 1)
+      calcRefVar.sum(inputIntOne =2147483647,inputIntTwo = 1)
     }
   }
 
