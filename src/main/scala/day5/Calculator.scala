@@ -11,6 +11,6 @@ class Calculator {
     inputIntOne-inputIntTwo
   }
   def divide(numerator:Int,denominator:Int): Any ={
-  0
+  numerator/denominator
   }
 }
