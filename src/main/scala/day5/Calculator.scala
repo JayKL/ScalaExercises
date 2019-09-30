@@ -7,4 +7,7 @@ class Calculator {
   def multi(inputIntOne: Int, inputIntTwo:Int): Int={
     inputIntOne*inputIntTwo
   }
+  def minus(inputIntOne: Int, inputIntTwo:Int): Int={
+    0
+  }
 }
