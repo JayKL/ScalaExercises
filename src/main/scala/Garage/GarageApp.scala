@@ -23,21 +23,21 @@ object GarageApp extends App {
     }
   }
 
-  def printAmountOfCars(): Unit ={
+  def printAmountOfCars(): Unit = {
     print("Amount of Cars to be fixed: ")
     print(garageRefVal.getContentsOfGarage().size)
     print("\n")
   }
 
-  def printTimeToFixAllCars(): Unit ={
+  def printTimeToFixAllCars(): Unit = {
     print("Time to fix all Cars: ")
     print(garageRefVal.getContentsOfGarage().flatMap(vehicle => vehicle.getListOfParts()).filter(part => part.broken == true).map(part => part.getTimeToFix()).sum)
     print("\n")
   }
 
-  def printEmployeeWorkHours(): Unit={
+  def printEmployeeWorkHours(): Unit = {
     print("Available Employee Work Hours: ")
-    print(garageRefVal.getContentsOfEmployees().filter(employee => employee.canThisEmployeeWork==true).map(employee => employee.workableHours).sum)
+    print(garageRefVal.getContentsOfEmployees().filter(employee => employee.canThisEmployeeWork == true).map(employee => employee.workableHours).sum)
     print("\n")
   }
 
@@ -47,8 +47,13 @@ object GarageApp extends App {
     printTimeToFixAllCars()
     printEmployeeWorkHours()
 
-    var employeeWorkHours = garageRefVal.getContentsOfEmployees().filter(employee => employee.canThisEmployeeWork==true).map(employee => employee.workableHours).sum
-    garageRefVal.fixVehicle(garageRefVal.getContentsOfGarage()(0),employeeWorkHours,employeeWorkHours/12)
+    val employeeWorkHours = garageRefVal.getContentsOfEmployees().filter(employee => employee.canThisEmployeeWork == true).map(employee => employee.workableHours).sum
+ //   garageRefVal.fixVehicle(garageRefVal.getContentsOfGarage()(0), employeeWorkHours, garageRefVal.getContentsOfEmployees().size,0)
+  // garageRefVal.fixVehicle(garageRefVal.getContentsOfGarage()(1), employeeWorkHours, garageRefVal.getContentsOfEmployees().size,0)
+
+    garageRefVal.fixAllVehicles(garageRefVal.getContentsOfGarage(), employeeWorkHours, garageRefVal.getContentsOfEmployees().size,0,0)
+
+
   }
 
   garageRefVal.closeGarage()
