@@ -26,6 +26,8 @@ class PrimeNumbersTest extends ScalaExercisesTesting {
   }
 
   "When calling function stepThreeOne" should "return the possible solutions to 4x^2 + y^2=n" in {
-    primeNumbersRefVal.stepThreeOne(7)
+    assertResult(1) {
+      primeNumbersRefVal.stepThreeOne(7)
+    }
   }
 }

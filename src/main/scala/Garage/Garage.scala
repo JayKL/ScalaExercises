@@ -64,7 +64,7 @@ class Garage {
     if (differenceBetweenWorkTimeFixTime >= 0) {
       printInfoToUser(vehicleToBeFixed, currentTotalEmployeeWorkTime)
       vehicleToBeFixed.setListOfParts(vehicleToBeFixed.getListOfParts().map(part => part.setPartBrokenValue(true)))
-      removeVehicle(vehicleToBeFixed)
+      //removeVehicle(vehicleToBeFixed)
       calculateAmountOfEmployeesToFixVehicle(calculateFixTime(vehicleToBeFixed), 0, remainder)
     } else {
       print("not enough employee work time to fix vehicle")
