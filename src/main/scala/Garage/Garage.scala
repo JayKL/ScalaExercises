@@ -43,7 +43,7 @@ class Garage {
 
   }
 
-  def findRemainder(vehicleToBeFixed: Vehicle): Unit ={
+  def findRemainder(vehicleToBeFixed: Vehicle): Int ={
     calculateFixTime(vehicleToBeFixed) % 12
   }
 
