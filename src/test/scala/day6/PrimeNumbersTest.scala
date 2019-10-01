@@ -16,12 +16,12 @@ class PrimeNumbersTest extends ScalaExercisesTesting {
   }
 
   "The object primeNumbersRefVal has a prime numbers finder" should "require integer input" in {
-    primeNumbersRefVal.findPrimeNumbersUpTo(1,100)
+    primeNumbersRefVal.findPrimeNumbersUpTo(1,10)
   }
 
   "When limit is entered" should "create a sieve list" in {
-    assertResult(List(1,2,3,4,5,6,7,8,9)) {
-      primeNumbersRefVal.createSieveList(1,10)
+    assertResult(List(2,3,4,5,6,7,8,9)) {
+      primeNumbersRefVal.createSieveList(2,10)
     }
   }
 
