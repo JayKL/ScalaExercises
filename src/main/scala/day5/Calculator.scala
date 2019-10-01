@@ -2,9 +2,7 @@ package day5
 
 class Calculator {
   def sum(inputIntOne: Int, inputIntTwo: Int): Any = {
-    val inputIntOneLong = inputIntOne.toLong
-    val inputIntTwoLong = inputIntTwo.toLong
-    inputIntOneLong + inputIntTwoLong match {
+    inputIntOne.toLong + inputIntTwo.toLong match {
       case resultMaxValueChecker: Long if resultMaxValueChecker > Integer.MAX_VALUE => "result out of bounds"
       case resultMinValueChecker: Long if (-resultMinValueChecker) > Integer.MAX_VALUE => "result out of bounds"
       case _ => inputIntOne + inputIntTwo
@@ -12,9 +10,7 @@ class Calculator {
   }
 
   def multi(inputIntOne: Int, inputIntTwo: Int): Any = {
-    val inputIntOneLong = inputIntOne.toLong
-    val inputIntTwoLong = inputIntTwo.toLong
-    inputIntOneLong * inputIntTwoLong match {
+    inputIntOne.toLong * inputIntTwo.toLong match {
       case resultMaxValueChecker: Long if resultMaxValueChecker > Integer.MAX_VALUE => "result out of bounds"
       case resultMinValueChecker: Long if (-resultMinValueChecker) > Integer.MAX_VALUE => "result out of bounds"
       case _ => inputIntOne * inputIntTwo
@@ -22,9 +18,7 @@ class Calculator {
   }
 
   def minus(inputIntOne: Int, inputIntTwo: Int): Any = {
-    val inputIntOneLong = inputIntOne.toLong
-    val inputIntTwoLong = inputIntTwo.toLong
-    inputIntOneLong - inputIntTwoLong match {
+    inputIntOne.toLong - inputIntTwo.toLong match {
       case resultMaxValueChecker: Long if resultMaxValueChecker > Integer.MAX_VALUE => "result out of bounds"
       case resultMinValueChecker: Long if (-resultMinValueChecker) > Integer.MAX_VALUE => "result out of bounds"
       case _ => inputIntOne - inputIntTwo
