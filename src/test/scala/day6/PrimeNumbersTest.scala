@@ -15,4 +15,8 @@ class PrimeNumbersTest extends ScalaExercisesTesting {
     }
   }
 
+  "The object primeNumbersRefVal has a prime numbers finder" should "require integer input" in {
+    primeNumbersRefVal.findPrimeNumbersUpTo(100)
+  }
+
 }
