@@ -6,9 +6,9 @@ import org.mongodb.scala.model.Updates._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
 
-class MongoConnection {
-  val mongoClient: MongoClient = MongoClient("mongodb://localhost")
-  val database: MongoDatabase = mongoClient.getDatabase("Garage")
+class MongoConnection extends DatabaseConnection {
+  val mongoClient: MongoClient = MongoClient(getConnection())
+  val database: MongoDatabase = mongoClient.getDatabase(getDatabase())
 
   def addDocument(doc: Document,inputCollection: MongoCollection[Document]) = {
     inputCollection.insertOne(doc)
