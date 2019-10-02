@@ -15,7 +15,7 @@ class Garage extends MongoConnection {
     listOfVehiclesFuture=Await.result(database.getCollection("Vehicles").find().toFuture(),Duration.Inf).map(doc => convertDocToCar(doc)).toList
   }
 
-  private var listOfVehiclesFuture: List[Vehicle] = List()
+  var listOfVehiclesFuture: List[Vehicle] = List()
   private var listOfCustomers: List[Customer] = List()
   private var listOfEmployees: List[Employee] = List()
   private var listOfVehicles: List[Vehicle] = List()
