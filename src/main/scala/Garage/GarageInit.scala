@@ -2,7 +2,7 @@ package Garage
 
 import scala.util.Random
 
-object GarageApp extends App {
+class GarageInit  {
   var garageRefVal = new Garage
   garageRefVal.openGarage()
   garageRefVal.registerEmployee(new Employee("a", "Big Boss", 1))
