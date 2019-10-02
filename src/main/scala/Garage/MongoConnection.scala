@@ -5,6 +5,7 @@ import org.mongodb.scala.model.Filters._
 import org.mongodb.scala.model.Updates._
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
 class MongoConnection extends DatabaseConnection with ModelToDConv {
@@ -22,12 +23,11 @@ class MongoConnection extends DatabaseConnection with ModelToDConv {
     inputCollection.find()
   }
 
-  def getById(id: String,inputCollection: MongoCollection[Document]) = {
-
-
+  def getById(id: Int,inputCollection: MongoCollection[Document]) = {
+    inputCollection.find(equal("_id", id)).first()
   }
 
-  def deleteById(id: String,inputCollection: MongoCollection[Document]) = {
+  def deleteById(id: Int,inputCollection: MongoCollection[Document]) = {
     inputCollection.deleteOne(equal("_id", id)).headOption().onComplete{
       case Success(value) => println("Completed")
       case Failure(error) => error.printStackTrace()

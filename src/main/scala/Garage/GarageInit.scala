@@ -2,7 +2,8 @@ package Garage
 
 import scala.util.Random
 
-class GarageInit  {
+class GarageInit {
+
   var garageRefVal = new Garage
   garageRefVal.openGarage()
   garageRefVal.registerEmployee(new Employee("a", "Big Boss", 1))
@@ -49,7 +50,7 @@ class GarageInit  {
 
     val employeeWorkHours = garageRefVal.getContentsOfEmployees().filter(employee => employee.canThisEmployeeWork == true).map(employee => employee.workableHours).sum
 
-    garageRefVal.fixAllVehicles(garageRefVal.getContentsOfGarage(), employeeWorkHours, garageRefVal.getContentsOfEmployees().size,0,0)
+    garageRefVal.fixAllVehicles(garageRefVal.getContentsOfGarage(), employeeWorkHours, garageRefVal.getContentsOfEmployees().size, 0, 0)
 
 
   }
