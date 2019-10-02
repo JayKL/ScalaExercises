@@ -7,6 +7,8 @@ object Main extends App with ModelToDConv{
   val mongoClient: MongoClient = MongoClient(databaseConnectionRefVal.getConnectionVal())
   val database: MongoDatabase = mongoClient.getDatabase(databaseConnectionRefVal.getDatabaseVal())
   mongoConnection.addDocument(convertCarToDoc(new Car("QA Car", 0, 1)),database.getCollection("Vehicles"))
+  mongoConnection.get
+
 
   Thread.sleep(3000)
   mongoClient.close()

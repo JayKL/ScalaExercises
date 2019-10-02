@@ -22,6 +22,11 @@ class MongoConnection extends DatabaseConnection with ModelToDConv {
     inputCollection.find()
   }
 
+  def getById(id: String,inputCollection: MongoCollection[Document]) = {
+
+
+  }
+
   def deleteById(id: String,inputCollection: MongoCollection[Document]) = {
     inputCollection.deleteOne(equal("_id", id)).headOption().onComplete{
       case Success(value) => println("Completed")

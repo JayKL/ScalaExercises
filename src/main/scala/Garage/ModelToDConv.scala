@@ -1,10 +1,12 @@
 package Garage
 
+import com.google.gson.Gson
 import org.mongodb.scala.Document
 
 
 trait ModelToDConv {
 
+  val gson=new Gson
   def convertCarToDoc(carToConv: Car): Document = {
     Document(
       "_id" -> carToConv.ownerCustomerID,
@@ -22,5 +24,11 @@ trait ModelToDConv {
     )
   }
 
+  def convertDocToCar(docToConver: Document): Car ={
+    val model =   docToConver("model").asString().getValue()
+    val regID = docToConver("regID").asInt32().getValue()
+    val ownercustomerID = docToConver("regID").asInt32().getValue()
+    new Car(model,regID,ownercustomerID)
+  }
 
 }
