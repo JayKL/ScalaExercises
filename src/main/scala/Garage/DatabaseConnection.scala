@@ -6,11 +6,11 @@ import Garage.PROJ_CONSTANTS.mongoDatabase
 class DatabaseConnection {
 
 
-  def getConnection(): String ={
+  def getConnectionVal(): String ={
     mongoConnectionVal
   }
 
-  def getDatabase(): String ={
+  def getDatabaseVal(): String ={
     mongoDatabase
   }
 

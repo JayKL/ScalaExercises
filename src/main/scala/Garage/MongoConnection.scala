@@ -8,11 +8,9 @@ import org.mongodb.scala.model.Updates._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
 
-object MongoConnection extends DatabaseConnection with App {
-  val mongoClient: MongoClient = MongoClient(getConnection())
-  val database: MongoDatabase = mongoClient.getDatabase(getDatabase())
+class MongoConnection extends DatabaseConnection with ModelToDConv {
+
   val gson=new Gson
-  val modelToDConvRefVal = new ModelToDConv
 
   def addDocument(doc: Document,inputCollection: MongoCollection[Document]) = {
     inputCollection.insertOne(doc)
@@ -35,13 +33,9 @@ object MongoConnection extends DatabaseConnection with App {
   }
 
 
-  val database2: MongoDatabase = mongoClient.getDatabase("FirstDB")
-
-  addDocument(modelToDConvRefVal.convertCarToDoc(new Car("QA Car", 0, 1)),database.getCollection("Vehicles"))
 
 
 
   Thread.sleep(3000)
-  mongoClient.close()
 
 }

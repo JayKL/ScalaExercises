@@ -3,7 +3,7 @@ package Garage
 import org.mongodb.scala.Document
 
 
-class ModelToDConv {
+trait ModelToDConv {
 
 
 
@@ -11,8 +11,7 @@ class ModelToDConv {
     Document(
       "_id" -> carToConv.ownerCustomerID,
       "model" -> carToConv.model,
-      "regID" -> carToConv.regID,
-      "List of Parts" -> carToConv.getListOfParts()
+      "regID" -> carToConv.regID
     )
   }
 
