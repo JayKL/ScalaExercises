@@ -1,6 +1,6 @@
 package Garage
 
-final class PROJ_CONSTANTS {
+object PROJ_CONSTANTS {
   val mongoConnectionVal="mongodb://localhost"
   val mongoDatabase="Garage"
 }

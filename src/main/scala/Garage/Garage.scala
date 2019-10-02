@@ -8,14 +8,15 @@ class Garage {
   private var listOfVehicles: List[Vehicle] = List()
   var openOrNot: Boolean = false
   private var currentEmployee: Int = 0
-  private var mongoConnecRefVal=new MongoConnection
+//  private var mongoConnecRefVal=new MongoConnection
+ // private var gsonRefernceObject=new Gson
 
   def addCustomer(customerToBeAdded: Customer): Unit = {
     listOfCustomers = listOfCustomers :+ customerToBeAdded
   }
 
   def addVehicle(vehicleToBeAdded: Vehicle): Unit = {
-   // mongoConnecRefVal.addDocument(vehicleToBeAdded,"Vehicles")
+//    mongoConnecRefVal.addDocument(vehicleToBeAdded.,"Vehicles")
     listOfVehicles = listOfVehicles :+ vehicleToBeAdded
   }
 
