@@ -1,6 +1,5 @@
 package Garage
 
-import com.google.gson.Gson
 import org.mongodb.scala._
 import org.mongodb.scala.model.Filters._
 import org.mongodb.scala.model.Updates._
@@ -9,8 +8,6 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Success}
 
 class MongoConnection extends DatabaseConnection with ModelToDConv {
-
-  val gson=new Gson
 
   def addDocument(doc: Document,inputCollection: MongoCollection[Document]) = {
     inputCollection.insertOne(doc)
@@ -31,11 +28,5 @@ class MongoConnection extends DatabaseConnection with ModelToDConv {
       case Failure(error) => error.printStackTrace()
     }
   }
-
-
-
-
-
-  Thread.sleep(3000)
 
 }
