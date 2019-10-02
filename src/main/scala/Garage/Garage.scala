@@ -1,5 +1,6 @@
 package Garage
 
+
 class Garage {
 
   private var listOfCustomers: List[Customer] = List()
@@ -7,12 +8,14 @@ class Garage {
   private var listOfVehicles: List[Vehicle] = List()
   var openOrNot: Boolean = false
   private var currentEmployee: Int = 0
+  private var mongoConnecRefVal=new MongoConnection
 
   def addCustomer(customerToBeAdded: Customer): Unit = {
     listOfCustomers = listOfCustomers :+ customerToBeAdded
   }
 
   def addVehicle(vehicleToBeAdded: Vehicle): Unit = {
+   // mongoConnecRefVal.addDocument(vehicleToBeAdded,"Vehicles")
     listOfVehicles = listOfVehicles :+ vehicleToBeAdded
   }
 
@@ -43,7 +46,7 @@ class Garage {
 
   }
 
-  def findRemainder(vehicleToBeFixed: Vehicle): Unit ={
+  def findRemainder(vehicleToBeFixed: Vehicle): Int ={
     calculateFixTime(vehicleToBeFixed) % 12
   }
 
@@ -55,7 +58,7 @@ class Garage {
       fixAllVehicles(vehicleToBeFixed, currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed(whichVehicle)), workableEmployees, remainderSave, whichVehicle + 1)
     } else{
       print("\n")
-      println("not enough employee work hours to fix final vehicle")
+      println("employees are exhausted")
     }
   }
 
