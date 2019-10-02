@@ -12,10 +12,14 @@ class Garage extends MongoConnection {
 
   def Initialize(): Unit ={
     println("retrieving Data from database")
+    println("retrieving list of vehicles")
     listOfVehiclesFuture=Await.result(database.getCollection("Vehicles").find().toFuture(),Duration.Inf).map(doc => convertDocToCar(doc)).toList
+    println("retrieving list of employees")
+    //listOfEmployeesFuture=Await.result(database.getCollection("Employees").find().toFuture(),Duration.Inf).map(doc => convertDocToEmploy(doc)).toList
   }
 
   var listOfVehiclesFuture: List[Vehicle] = List()
+  var listOfEmployeesFuture: List[Vehicle] = List()
   private var listOfCustomers: List[Customer] = List()
   private var listOfEmployees: List[Employee] = List()
   private var listOfVehicles: List[Vehicle] = List()
