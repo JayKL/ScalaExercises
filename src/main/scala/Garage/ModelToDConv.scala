@@ -40,4 +40,11 @@ trait ModelToDConv {
       "canThisEmployeeWork" -> employeeToConvert.canThisEmployeeWork
     )
   }
+
+  def convertDocToEmployee(docToConver:Document): Employee={
+    val name= docToConver("name").asString().getValue()
+    val position=docToConver("position").asString().getValue()
+    val employeeID=docToConver("employeeID").asInt32().getValue()
+    new Employee(name,position,employeeID)
+  }
 }

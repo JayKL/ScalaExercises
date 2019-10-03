@@ -15,12 +15,14 @@ class Garage extends MongoConnection {
     println("retrieving Data from database")
     println("retrieving list of vehicles")
     listOfVehiclesFuture=Await.result(database.getCollection("Vehicles").find().toFuture(),Duration.Inf).map(doc => convertDocToCar(doc)).toList
+    println(listOfVehiclesFuture)
     println("retrieving list of employees")
-    //listOfEmployeesFuture=Await.result(database.getCollection("Employees").find().toFuture(),Duration.Inf).map(doc => convertDocToEmploy(doc)).toList
+    listOfEmployeesFuture=Await.result(database.getCollection("Employees").find().toFuture(),Duration.Inf).map(doc => convertDocToEmployee(doc)).toList
+    println(listOfEmployeesFuture)
   }
 
   var listOfVehiclesFuture: List[Vehicle] = List()
-  var listOfEmployeesFuture: List[Vehicle] = List()
+  var listOfEmployeesFuture: List[Employee] = List()
   private var listOfCustomers: List[Customer] = List()
   private var listOfEmployees: List[Employee] = List()
   private var listOfVehicles: List[Vehicle] = List()
@@ -28,9 +30,6 @@ class Garage extends MongoConnection {
   var openOrNot: Boolean = false
   private var currentEmployee: Int = 0
 
-
-  //  private var mongoConnecRefVal=new MongoConnection
-  // private var gsonRefernceObject=new Gson
   def getContentsOfGarage(): List[Vehicle] = {
     listOfVehicles
   }
