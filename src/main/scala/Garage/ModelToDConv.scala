@@ -7,7 +7,7 @@ import org.mongodb.scala.Document
 trait ModelToDConv {
 
   val gson=new Gson
-  def convertCarToDoc(carToConv: Car): Document = {
+  def convertCarToDoc(carToConv: Vehicle): Document = {
     Document(
       "_id" -> carToConv.ownerCustomerID,
       "model" -> carToConv.model,
@@ -31,4 +31,13 @@ trait ModelToDConv {
      new Car(model,regID,ownercustomerID)
   }
 
+  def convertEmployeeToDoc(employeeToConvert: Employee): Document={
+    Document(
+      "name" -> employeeToConvert.name,
+      "position" -> employeeToConvert.position,
+      "employeeID" -> employeeToConvert.employeeIDInput,
+      "workableHours" -> employeeToConvert.workableHours,
+      "canThisEmployeeWork" -> employeeToConvert.canThisEmployeeWork
+    )
+  }
 }

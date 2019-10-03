@@ -9,6 +9,7 @@ import scala.concurrent.duration.Duration
 class Garage extends MongoConnection {
   val mongoClient: MongoClient = MongoClient(getConnectionVal())
   val database: MongoDatabase = mongoClient.getDatabase(getDatabaseVal())
+  val modelToDConvRefVal: ModelToDConv=new ModelToDConv {}
 
   def Initialize(): Unit ={
     println("retrieving Data from database")
@@ -43,7 +44,7 @@ class Garage extends MongoConnection {
   }
 
   def addVehicle(vehicleToBeAdded: Vehicle): Unit = {
-    //    mongoConnecRefVal.addDocument(vehicleToBeAdded.,"Vehicles")
+    addDocument(modelToDConvRefVal.convertCarToDoc(vehicleToBeAdded),database.getCollection( "Vehicles"))
     listOfVehicles = listOfVehicles :+ vehicleToBeAdded
   }
 
@@ -57,6 +58,7 @@ class Garage extends MongoConnection {
   }
 
   def registerEmployee(employeeToBeRegistered: Employee): Unit = {
+    addDocument(modelToDConvRefVal.convertEmployeeToDoc(employeeToBeRegistered),database.getCollection("Employees"))
     listOfEmployees = listOfEmployees :+ employeeToBeRegistered
   }
 
