@@ -17,8 +17,8 @@ class Part {
   def getTimeToFix(): Int={
     timeToFix
   }
-  val priceToFix: Int = new Random().nextInt(150)
-  val timeToFix: Int=new Random().nextInt(4)
+  val priceToFix: Int = new Random().nextInt(100) + 50
+  val timeToFix: Int=new Random().nextInt(3) + 1
 
   override def toString: String = s"Part($broken, $priceToFix, $timeToFix)"
 }

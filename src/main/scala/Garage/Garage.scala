@@ -1,22 +1,55 @@
 package Garage
 
+import org.mongodb.scala.{MongoClient, MongoDatabase}
 
-class Garage {
+import scala.concurrent.Await
+import scala.concurrent.duration.Duration
 
+
+class Garage extends MongoConnection {
+  val mongoClient: MongoClient = MongoClient(getConnectionVal())
+  val database: MongoDatabase = mongoClient.getDatabase(getDatabaseVal())
+  val modelToDConvRefVal: ModelToDConv=new ModelToDConv {}
+
+  def Initialize(): Unit ={
+    println("retrieving Data from database")
+    println("retrieving list of vehicles")
+    listOfVehicles=Await.result(database.getCollection("Vehicles").find().toFuture(),Duration.Inf).map(doc => convertDocToCar(doc)).toList
+    println(listOfVehicles)
+    println("retrieving list of employees")
+    listOfEmployees=Await.result(database.getCollection("Employees").find().toFuture(),Duration.Inf).map(doc => convertDocToEmployee(doc)).toList
+    println(listOfEmployees)
+  }
+
+  var listOfVehiclesFuture: List[Vehicle] = List()
+  var listOfEmployeesFuture: List[Employee] = List()
   private var listOfCustomers: List[Customer] = List()
   private var listOfEmployees: List[Employee] = List()
   private var listOfVehicles: List[Vehicle] = List()
+  Initialize()
   var openOrNot: Boolean = false
   private var currentEmployee: Int = 0
-  private var mongoConnecRefVal=new MongoConnection
+
+  def getContentsOfGarage(): List[Vehicle] = {
+    listOfVehicles
+  }
+
+  def getContentsOfEmployees(): List[Employee] = {
+    listOfEmployees
+  }
 
   def addCustomer(customerToBeAdded: Customer): Unit = {
     listOfCustomers = listOfCustomers :+ customerToBeAdded
   }
 
   def addVehicle(vehicleToBeAdded: Vehicle): Unit = {
-   // mongoConnecRefVal.addDocument(vehicleToBeAdded,"Vehicles")
+    addDocument(modelToDConvRefVal.convertCarToDoc(vehicleToBeAdded),database.getCollection( "Vehicles"))
     listOfVehicles = listOfVehicles :+ vehicleToBeAdded
+  }
+
+  def registerEmployee(employeeToBeRegistered: Employee): Unit = {
+    addDocument(modelToDConvRefVal.convertEmployeeToDoc(employeeToBeRegistered),database.getCollection("Employees"))
+    listOfEmployees = listOfEmployees :+ employeeToBeRegistered
   }
 
   def removeVehicle(vehicleToBeRemoved: Vehicle): Unit = {
@@ -28,9 +61,7 @@ class Garage {
     }
   }
 
-  def registerEmployee(employeeToBeRegistered: Employee): Unit = {
-    listOfEmployees = listOfEmployees :+ employeeToBeRegistered
-  }
+
 
   def printInfoToUser(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int): Unit = {
     print("\n")
@@ -46,17 +77,22 @@ class Garage {
 
   }
 
-  def findRemainder(vehicleToBeFixed: Vehicle): Int ={
+  def findRemainder(vehicleToBeFixed: Vehicle): Int = {
     calculateFixTime(vehicleToBeFixed) % 12
   }
 
-  def fixAllVehicles(vehicleToBeFixed: List[Vehicle], currentTotalEmployeeWorkTime: Int, workableEmployees: Int, remainder: Int,whichVehicle:Int): Unit = {
-    val isThereEnoughTimeToFix=currentTotalEmployeeWorkTime-calculateFixTime(vehicleToBeFixed(whichVehicle))
-    if (isThereEnoughTimeToFix>=0) {
-       fixVehicle(vehicleToBeFixed(whichVehicle), currentTotalEmployeeWorkTime, workableEmployees, remainder)
-      val remainderSave =findRemainder(vehicleToBeFixed(whichVehicle))
-      fixAllVehicles(vehicleToBeFixed, currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed(whichVehicle)), workableEmployees, remainderSave, whichVehicle + 1)
-    } else{
+  def isThereEnoughTimeToFix(currentTotalEmployeeWorkTime: Int, fixTime:Int): Boolean ={
+    currentTotalEmployeeWorkTime - fixTime match {
+      case isGreaterThanZero: Int if isGreaterThanZero>=0 => true
+      case _ => false
+    }
+  }
+
+  def fixAllVehicles(vehicleToBeFixed: List[Vehicle], currentTotalEmployeeWorkTime: Int, workableEmployees: Int, remainder: Int, whichVehicle: Int): Unit = {
+    if (isThereEnoughTimeToFix(currentTotalEmployeeWorkTime,calculateFixTime(vehicleToBeFixed(whichVehicle)))) {
+      fixVehicle(vehicleToBeFixed(whichVehicle), currentTotalEmployeeWorkTime, workableEmployees, remainder)
+      fixAllVehicles(vehicleToBeFixed, currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed(whichVehicle)), workableEmployees, findRemainder(vehicleToBeFixed(whichVehicle)), whichVehicle + 1)
+    } else {
       print("\n")
       println("employees are exhausted")
     }
@@ -103,14 +139,6 @@ class Garage {
     vehicleToBeFixed.getListOfParts().map(part => part.priceToFix).sum
   }
 
-  def getContentsOfGarage(): List[Vehicle] = {
-    listOfVehicles
-  }
-
-  def getContentsOfEmployees(): List[Employee] = {
-    listOfEmployees
-  }
-
   def openGarage(): Unit = {
     openOrNot = true
   }
@@ -118,4 +146,5 @@ class Garage {
   def closeGarage(): Unit = {
     openOrNot = false
   }
+
 }

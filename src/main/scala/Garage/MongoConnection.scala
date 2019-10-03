@@ -3,12 +3,12 @@ package Garage
 import org.mongodb.scala._
 import org.mongodb.scala.model.Filters._
 import org.mongodb.scala.model.Updates._
+
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 import scala.util.{Failure, Success}
 
-class MongoConnection extends DatabaseConnection {
-  val mongoClient: MongoClient = MongoClient(getConnection())
-  val database: MongoDatabase = mongoClient.getDatabase(getDatabase())
+class MongoConnection extends DatabaseConnection with ModelToDConv {
 
   def addDocument(doc: Document,inputCollection: MongoCollection[Document]) = {
     inputCollection.insertOne(doc)
@@ -23,13 +23,15 @@ class MongoConnection extends DatabaseConnection {
     inputCollection.find()
   }
 
+  def getById(id: Int,inputCollection: MongoCollection[Document]) = {
+    inputCollection.find(equal("_id", id)).first()
+  }
+
   def deleteById(id: Int,inputCollection: MongoCollection[Document]) = {
-    inputCollection.deleteOne(equal("_id", 1)).headOption().onComplete{
+    inputCollection.deleteOne(equal("_id", id)).headOption().onComplete{
       case Success(value) => println("Completed")
       case Failure(error) => error.printStackTrace()
     }
   }
-
-
 
 }
