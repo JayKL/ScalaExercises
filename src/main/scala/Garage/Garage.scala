@@ -14,11 +14,11 @@ class Garage extends MongoConnection {
   def Initialize(): Unit ={
     println("retrieving Data from database")
     println("retrieving list of vehicles")
-    listOfVehiclesFuture=Await.result(database.getCollection("Vehicles").find().toFuture(),Duration.Inf).map(doc => convertDocToCar(doc)).toList
-    println(listOfVehiclesFuture)
+    listOfVehicles=Await.result(database.getCollection("Vehicles").find().toFuture(),Duration.Inf).map(doc => convertDocToCar(doc)).toList
+    println(listOfVehicles)
     println("retrieving list of employees")
-    listOfEmployeesFuture=Await.result(database.getCollection("Employees").find().toFuture(),Duration.Inf).map(doc => convertDocToEmployee(doc)).toList
-    println(listOfEmployeesFuture)
+    listOfEmployees=Await.result(database.getCollection("Employees").find().toFuture(),Duration.Inf).map(doc => convertDocToEmployee(doc)).toList
+    println(listOfEmployees)
   }
 
   var listOfVehiclesFuture: List[Vehicle] = List()
@@ -47,6 +47,11 @@ class Garage extends MongoConnection {
     listOfVehicles = listOfVehicles :+ vehicleToBeAdded
   }
 
+  def registerEmployee(employeeToBeRegistered: Employee): Unit = {
+    addDocument(modelToDConvRefVal.convertEmployeeToDoc(employeeToBeRegistered),database.getCollection("Employees"))
+    listOfEmployees = listOfEmployees :+ employeeToBeRegistered
+  }
+
   def removeVehicle(vehicleToBeRemoved: Vehicle): Unit = {
     listOfVehicles.contains(vehicleToBeRemoved) match {
       case true => {
@@ -56,10 +61,7 @@ class Garage extends MongoConnection {
     }
   }
 
-  def registerEmployee(employeeToBeRegistered: Employee): Unit = {
-    addDocument(modelToDConvRefVal.convertEmployeeToDoc(employeeToBeRegistered),database.getCollection("Employees"))
-    listOfEmployees = listOfEmployees :+ employeeToBeRegistered
-  }
+
 
   def printInfoToUser(vehicleToBeFixed: Vehicle, currentTotalEmployeeWorkTime: Int): Unit = {
     print("\n")
@@ -79,12 +81,17 @@ class Garage extends MongoConnection {
     calculateFixTime(vehicleToBeFixed) % 12
   }
 
+  def isThereEnoughTimeToFix(currentTotalEmployeeWorkTime: Int, fixTime:Int): Boolean ={
+    currentTotalEmployeeWorkTime - fixTime match {
+      case isGreaterThanZero: Int if isGreaterThanZero>=0 => true
+      case _ => false
+    }
+  }
+
   def fixAllVehicles(vehicleToBeFixed: List[Vehicle], currentTotalEmployeeWorkTime: Int, workableEmployees: Int, remainder: Int, whichVehicle: Int): Unit = {
-    val isThereEnoughTimeToFix = currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed(whichVehicle))
-    if (isThereEnoughTimeToFix >= 0) {
+    if (isThereEnoughTimeToFix(currentTotalEmployeeWorkTime,calculateFixTime(vehicleToBeFixed(whichVehicle)))) {
       fixVehicle(vehicleToBeFixed(whichVehicle), currentTotalEmployeeWorkTime, workableEmployees, remainder)
-      val remainderSave = findRemainder(vehicleToBeFixed(whichVehicle))
-      fixAllVehicles(vehicleToBeFixed, currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed(whichVehicle)), workableEmployees, remainderSave, whichVehicle + 1)
+      fixAllVehicles(vehicleToBeFixed, currentTotalEmployeeWorkTime - calculateFixTime(vehicleToBeFixed(whichVehicle)), workableEmployees, findRemainder(vehicleToBeFixed(whichVehicle)), whichVehicle + 1)
     } else {
       print("\n")
       println("employees are exhausted")

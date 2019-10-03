@@ -27,8 +27,8 @@ trait ModelToDConv {
   def convertDocToCar(docToConver: Document): Car ={
     val model =   docToConver("model").asString().getValue()
     val regID = docToConver("regID").asInt32().getValue()
-    val ownercustomerID = docToConver("_id").asInt32().getValue()
-     new Car(model,regID,ownercustomerID)
+    val ownerCustomerID = docToConver("_id").asInt32().getValue()
+     new Car(model,regID,ownerCustomerID)
   }
 
   def convertEmployeeToDoc(employeeToConvert: Employee): Document={
@@ -45,6 +45,7 @@ trait ModelToDConv {
     val name= docToConver("name").asString().getValue()
     val position=docToConver("position").asString().getValue()
     val employeeID=docToConver("employeeID").asInt32().getValue()
-    new Employee(name,position,employeeID)
+    val canThisEmployeeWork=docToConver("canThisEmployeeWork").asBoolean().getValue()
+    new Employee(name,position,employeeID,canThisEmployeeWork)
   }
 }
