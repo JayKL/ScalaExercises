@@ -1,5 +1,6 @@
 package Garage
 
+import scala.collection.mutable.ListBuffer
 import scala.util.Random
 
 class GarageInit {
@@ -28,9 +29,16 @@ class GarageInit {
     }
   }
 
+  def generateListOfParts(count: Int, outputList: ListBuffer[Part]): List[Part] = {
+    if (count>0){
+      generateListOfParts(count-1,outputList += new Part)
+    }
+    outputList.toList
+  }
+
   def addCarsToBeFixed(garageRefVal: Garage, amountOfCars: Int, initialCount: Int): Unit = {
     if (amountOfCars > 0) {
-      garageRefVal.addVehicle(new Car("QA Car", 0, initialCount + 1))
+      garageRefVal.addVehicle(new Car("QA Car", 0, initialCount + 1, generateListOfParts(new Random().nextInt(6) + 10,  ListBuffer() )))
       addCarsToBeFixed(garageRefVal, amountOfCars - 1, initialCount + 1)
     }
   }
